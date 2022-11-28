@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable no-unused-expressions */
 /* ********************************************************************************************
  *                                                                                            *
  * Please read the following tutorial before implementing tasks:                               *
@@ -420,6 +422,13 @@ function toStringList(arr) {
  *    ]
  */
 function sortCitiesArray(/* arr */) {
+  // return arr.sort((a, b) => {
+  //   if (a.country !== b.country) {
+  //     a.country > b.country ? 1 : -1;
+  //   } else {
+  //     a.city > b.city ? 1 : -1;
+  //   }
+  // });
   throw new Error('Not implemented');
 }
 
@@ -473,8 +482,8 @@ function getIntervalArray(/* start, end */) {
  *   [ 'a', 'a', 'a', 'a' ]  => [ 'a' ]
  *   [ 1, 1, 2, 2, 3, 3, 4, 4] => [ 1, 2, 3, 4]
  */
-function distinct(/* arr */) {
-  throw new Error('Not implemented');
+function distinct(arr) {
+  return arr.filter((item, index) => arr.indexOf(item) === index);
 }
 
 /**
@@ -562,8 +571,17 @@ function getElementByIndexes(/* arr, indexes */) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8 ]   =>  [ 5, 6, 7, 8, 1, 2, 3, 4 ]
  *
  */
-function swapHeadAndTail(/* arr */) {
-  throw new Error('Not implemented');
+function swapHeadAndTail(arr) {
+  const sep = Math.floor(arr.length / 2);
+  const newArr1 = arr.splice(0, sep);
+  let newArr;
+  if (arr.length === sep) {
+    newArr = arr.concat(newArr1);
+  } else {
+    const newArr2 = arr.splice(1);
+    newArr = newArr2.concat(arr, newArr1);
+  }
+  return newArr;
 }
 
 module.exports = {
