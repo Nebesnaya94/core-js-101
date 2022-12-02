@@ -37,13 +37,7 @@ function findElement(arr, value) {
  *    5 => [ 1, 3, 5, 7, 9 ]
  */
 function generateOdds(len) {
-  const arr = [1];
-
-  while (arr.length < len) {
-    arr.push(arr[arr.length - 1] + 2);
-  }
-
-  return arr;
+  return Array(len).fill(0).map((_, index) => index * 2 + 1);
 }
 
 /**
@@ -236,13 +230,11 @@ function toArrayOfSquares(arr) {
  */
 function getMovingSum(arr) {
   const newArr = [];
-  let sum = 0;
-
-  for (let i = 0; i < arr.length; i += 1) {
-    sum += arr[i];
-    newArr.push(sum);
-  }
-
+  newArr.push(arr[0]);
+  arr.reduce((prev, cur) => {
+    newArr.push(prev + cur);
+    return prev + cur;
+  });
   return newArr;
 }
 
@@ -434,13 +426,6 @@ function toStringList(arr) {
  *    ]
  */
 function sortCitiesArray(arr) {
-  // return arr.sort((a, b) => {
-  //   if (a.country !== b.country) {
-  //     a.country > b.country ? 1 : -1;
-  //   } else {
-  //     a.city > b.city ? 1 : -1;
-  //   }
-  // });
   return arr.sort((a, b) => {
     if (a.country === b.country) {
       return a.city > b.city ? 1 : -1;
@@ -467,8 +452,10 @@ function sortCitiesArray(arr) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  return Array(n)
+    .fill(Array(n).fill(0))
+    .map((row, rowInd) => row.map((_, elemInd) => (rowInd === elemInd ? 1 : 0)));
 }
 
 /**
@@ -487,7 +474,7 @@ function getIdentityMatrix(/* n */) {
 function getIntervalArray(start, end) {
   return Array(end - start + 1)
     .fill(0)
-    .map((item, index) => index + start);
+    .map((_, index) => index + start);
 }
 
 /**
